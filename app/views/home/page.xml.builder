@@ -1,6 +1,6 @@
 xml.instruct!
 xml.Response do
-    xml.Play @song_url
+    xml.Say "I sent him a text message to call you"
     xml.Redirect "call"
 end
 
