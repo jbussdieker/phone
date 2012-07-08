@@ -13,8 +13,8 @@ class HomeController < ApplicationController
     elsif params[:Digits] == "2"
       render :action => "info.xml.builder", :layout => false
     elsif params[:Digits] == "3"
-      account_sid = ENV['TWILIO_SID']
-      auth_token = ENV['TWILIO_TOKEN']
+      account_sid = Rails.configuration.twilio_sid
+      auth_token = Rails.configuration.twilio_token
       my_number = '+14155992671'
       @client = Twilio::REST::Client.new account_sid, auth_token
       @client.account.sms.messages.create(
