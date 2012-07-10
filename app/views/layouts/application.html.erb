@@ -29,6 +29,9 @@
                   <li class="<%= 'active' if params[:controller] == 'message' %>">
                     <%= link_to 'Messages', "/messages" %>
                   </li>
+                  <li class="<%= 'active' if params[:controller] == 'numbers' %>">
+                    <%= link_to 'Numbers', "/numbers" %>
+                  </li>
                 <% else %>
                   <li>
                     <%= link_to('Login', new_user_session_path) %>

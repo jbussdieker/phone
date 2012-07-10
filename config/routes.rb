@@ -1,5 +1,8 @@
 Phone::Application.routes.draw do
   devise_for :users
+  resources :numbers do
+    resources :scripts
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -61,6 +64,7 @@ Phone::Application.routes.draw do
   match '/messages' => 'message#index'
 
   match '/phone_api' => 'phone_api#index'
+  match '/other' => 'phone_api#index'
 
   # See how all your routes lay out with "rake routes"
 

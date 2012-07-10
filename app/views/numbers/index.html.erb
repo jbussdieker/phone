@@ -1,0 +1,6 @@
+<% @numbers.each do |number| %>
+<%= link_to 'Scripts', number_scripts_path(number) %>
+<div><%= number.name %></div>
+<div><%= number.number %></div>
+<br>
+<% end %>
