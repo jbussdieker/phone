@@ -1,1 +1,12 @@
-<%= link_to 'New', new_number_script_path %>
+<%= link_to 'New', new_script_path, :class => "btn" %>
+<br><br>
+
+<table class="table table-striped">
+  <% @scripts.each do |script| %>
+    <tr>
+      <td><%= link_to script.name, script %></td>
+      <td><%= link_to 'Edit', edit_script_path(script) %></td>
+      <td><%= link_to 'Destroy', script, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+</table>

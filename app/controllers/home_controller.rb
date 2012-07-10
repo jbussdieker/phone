@@ -81,7 +81,7 @@ class HomeController < ApplicationController
 
   def message
     @recording_url = params[:RecordingUrl]
-    Message.create(:url => @recording_url)
+    Message.create(:url => @recording_url, :number => params[:Caller])
     redirect_to '/call'
   end
 end

@@ -1,3 +1,3 @@
 class Message < ActiveRecord::Base
-  attr_accessible :url
+  attr_accessible :url, :number
 end

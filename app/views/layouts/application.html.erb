@@ -26,11 +26,14 @@
                   <%= link_to 'Home', "/" %>
                 </li>
                 <% if user_signed_in? %>
-                  <li class="<%= 'active' if params[:controller] == 'message' %>">
+                  <li class="<%= 'active' if params[:controller] == 'messages' %>">
                     <%= link_to 'Messages', "/messages" %>
                   </li>
                   <li class="<%= 'active' if params[:controller] == 'numbers' %>">
                     <%= link_to 'Numbers', "/numbers" %>
+                  </li>
+                  <li class="<%= 'active' if params[:controller] == 'scripts' %>">
+                    <%= link_to 'Scripts', "/scripts" %>
                   </li>
                 <% else %>
                   <li>
