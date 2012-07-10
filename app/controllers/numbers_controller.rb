@@ -9,6 +9,10 @@ class NumbersController < ApplicationController
     @number = Number.find(params[:id])
   end
 
+  def new
+    @number = Number.new
+  end
+
   def update
     @number = Number.find(params[:id])
 
