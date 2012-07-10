@@ -1,8 +1,4 @@
 class HomeController < ApplicationController
-  def index
-    @messages = Message.all(:order => 'created_at')
-  end
-
   def call
     render :action => "index.xml.builder", :layout => false
   end

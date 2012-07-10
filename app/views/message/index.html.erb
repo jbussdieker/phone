@@ -1,0 +1,14 @@
+<table class="table table-striped">
+  <tr>
+    <td>Date</td>
+    <td>Caller</td>
+    <td></td>
+  </tr>
+  <% @messages.each do |message| %>
+  <tr>
+    <td><%= message.created_at %></td>
+    <td><%= message.number %></td>
+    <td><a href="<%= message.url %>">Play</a></td>
+  </tr>
+  <% end %>
+</table>
