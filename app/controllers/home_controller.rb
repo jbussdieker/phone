@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @messages = Message.all
+    @messages = Message.all(:order => 'created_at')
   end
 
   def call
