@@ -60,6 +60,8 @@ Phone::Application.routes.draw do
 
   match '/messages' => 'message#index'
 
+  match '/phone_api' => 'phone_api#index'
+
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
