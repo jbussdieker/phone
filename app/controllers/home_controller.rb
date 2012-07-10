@@ -72,7 +72,7 @@ class HomeController < ApplicationController
     if params[:Digits] == "1"
       @song_url = "https://s3.amazonaws.com/jbussdieker/music/All+Around+You.mp3"
     elsif params[:Digits] == "2"
-      @song_url = "https://s3.amazonaws.com/jbussdieker/music/Master+Plan.mp3"
+      @song_url = "https://s3.amazonaws.com/jbussdieker/music/I%27ll+Be+Waiting.mp3"
     elsif params[:Digits] == "3"
       @song_url = "https://s3.amazonaws.com/jbussdieker/music/Finally+Moving.mp3"
     elsif params[:Digits] == "4"
