@@ -1,10 +1,6 @@
 xml.instruct!
 xml.Response do
-    xml.Say("Knock Knock", :voice => "man")
-    xml.Say("Who's there?", :voice => "woman")
-    xml.Say("Cash", :voice => "man")
-    xml.Say("Cash who?", :voice => "woman")
-    xml.Say("No thanks, but I’d like some peanuts!", :voice => "man")
+    xml.Play "https://s3.amazonaws.com/jbussdieker/music/Josh-Blowin+In+The+Wind.mp3"
     xml.Redirect "call"
 end
 
