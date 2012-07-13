@@ -13,6 +13,20 @@ class NumbersController < ApplicationController
     @number = Number.new
   end
 
+  def create
+    @number = Number.new(params[:number])
+
+    respond_to do |format|
+      if @number.save
+        format.html { redirect_to numbers_path, notice: 'Number was successfully created.' }
+        format.json { render json: @number, status: :created, location: @number }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @number.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def update
     @number = Number.find(params[:id])
 
