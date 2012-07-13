@@ -1,6 +1,8 @@
 Phone::Application.routes.draw do
   devise_for :users
-  resources :scripts
+  resources :scripts do
+    resources :items
+  end
   resources :numbers
   resources :messages
 

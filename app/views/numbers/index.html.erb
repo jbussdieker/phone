@@ -2,9 +2,16 @@
 <br><br>
 
 <table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Script</th>
+    <th>Number</th>
+    <th></th>
+  </tr>
   <% @numbers.each do |number| %>
     <tr>
       <td><%= number.name %></td>
+      <td><%= number.script %></td>
       <td><%= number.number %></td>
       <td><%= link_to "Edit", edit_number_path(number) %></td>
     </tr>

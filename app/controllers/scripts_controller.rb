@@ -15,10 +15,12 @@ class ScriptsController < ApplicationController
 
   def show
     @script = Script.find(params[:id])
+    @items = @script.items
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @script }
+      format.xml { render :action => "show.xml.builder", :layout => false }
     end
   end
 

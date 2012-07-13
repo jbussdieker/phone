@@ -1,12 +1,7 @@
-<h2><%= @script.name %></h2>
-
-<%= link_to "New", new_script_item_path(@script), :class => "btn" %>
-<br><br>
-
 <table class="table table-striped">
   <% @items.each do |item| %>
     <tr>
-      <td><%= item.type %></td>
+      <td><%= item.type.name %></td>
       <td><%= link_to item.value, script_item_path(@script, item) %></td>
       <td><%= link_to 'Edit', edit_script_item_path(@script, item) %></td>
       <td><%= link_to 'Destroy', script_item_path(@script, item), confirm: 'Are you sure?', method: :delete %></td>
