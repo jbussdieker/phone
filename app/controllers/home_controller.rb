@@ -75,6 +75,8 @@ class HomeController < ApplicationController
       @song_url = "https://s3.amazonaws.com/jbussdieker/music/Flight+180.mp3"
     elsif params[:Digits] == "5"
       @song_url = "https://s3.amazonaws.com/jbussdieker/music/Only+Fools+Rush+In.mp3"
+    elsif params[:Digits] == "6"
+      @song_url = "https://s3.amazonaws.com/jbussdieker/music/Beds+Are+Burning.mp3"
     end
     render :action => "play.xml.builder", :layout => false
   end
