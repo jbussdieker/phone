@@ -2,7 +2,7 @@ class NumbersController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @numbers = Number.all
+    @numbers = Number.all(:order => "name")
   end
 
   def edit

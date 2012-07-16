@@ -5,7 +5,10 @@ module MessageHelper
 
     def caller_name(message)
         n = Number.where("number = ?", message.number).first
-        message.number
-        n.name if n
+        if n
+            n.name
+        else
+            message.number
+        end
     end
 end
