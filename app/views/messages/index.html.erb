@@ -8,7 +8,7 @@
   <% @messages.each do |message| %>
   <tr>
     <td><%= message_badge(message) %></td>
-    <td><%= message.created_at %></td>
+    <td><%= to_pst message.created_at %></td>
     <td><%= message.number %></td>
     <td>
         <audio controls>
