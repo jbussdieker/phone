@@ -5,6 +5,7 @@
     <th>Date</th>
     <th>Caller</th>
     <th></th>
+    <th></th>
   </tr>
   <% @messages.each do |message| %>
   <tr>
@@ -17,6 +18,7 @@
             Your browser does not support the audio tag. <a href="<%= message.url %>">Listen</a>
         </audio>
     </td>
+    <td><%= link_to "", [@mailbox, message], confirm: 'Are you sure?', method: :delete, class: "icon-trash" %></td>
   </tr>
   <% end %>
 </table>
