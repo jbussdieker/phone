@@ -5,6 +5,7 @@ Phone::Application.routes.draw do
   end
   resources :numbers
   resources :messages
+  resources :calls
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120716195353) do
+ActiveRecord::Schema.define(:version => 20120716210138) do
+
+  create_table "calls", :force => true do |t|
+    t.string   "CallSid"
+    t.string   "Caller"
+    t.string   "Called"
+    t.string   "AccountSid"
+    t.string   "CallStatus"
+    t.integer  "CallDuration"
+    t.boolean  "new",          :default => true
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
 
   create_table "items", :force => true do |t|
     t.string   "value"
@@ -27,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20120716195353) do
     t.datetime "updated_at",                   :null => false
     t.string   "number"
     t.boolean  "new",        :default => true
+    t.string   "CallSid"
   end
 
   create_table "numbers", :force => true do |t|

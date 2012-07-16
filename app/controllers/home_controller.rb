@@ -1,5 +1,22 @@
 class HomeController < ApplicationController
+  def register_call
+    if params["CallSid"]
+      filter_params = params.reject {|key,value|
+        !key.in?(["AccountSid", "CallSid", "Caller", "Called", "CallStatus", "CallDuration"])
+      }
+      @call = Call.where("CallSid" => params["CallSid"]).first
+      if @call
+        # update call status
+        @call.update_attributes(filter_params)
+      else
+        # create new call log
+        @call = Call.create(filter_params)
+      end
+    end
+  end
+
   def call
+    register_call
     render :action => "index.xml.builder", :layout => false
   end
 
