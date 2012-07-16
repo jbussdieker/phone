@@ -6,12 +6,13 @@ class HomeController < ApplicationController
       }
       @call = Call.where("CallSid" => params["CallSid"]).first
       if @call
-        # update call status
         @call.update_attributes(filter_params)
       else
-        # create new call log
         @call = Call.create(filter_params)
       end
+    end
+    if params["Caller"]
+        @caller = Number.where("number = ?", params["Caller"]).first
     end
   end
 
