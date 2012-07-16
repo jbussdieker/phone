@@ -107,7 +107,7 @@ class HomeController < ApplicationController
         mailbox = 2
     end
 
-    Message.create(:url => @recording_url, :CallSid => params[:CallSid], :mailbox_id => mailbox, :number => @caller)
+    Message.create(:url => @recording_url, :CallSid => params[:CallSid], :mailbox_id => 1, :number => @caller)
     redirect_to '/call'
   end
 end
