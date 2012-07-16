@@ -8,8 +8,8 @@
   <% @messages.each do |message| %>
   <tr>
     <td><%= message_badge(message) %></td>
-    <td><%= to_pst message.created_at %></td>
-    <td><%= message.number %></td>
+    <td><%= to_pst(message.created_at) %></td>
+    <td><%= caller_name(message) %></td>
     <td>
         <audio controls>
             <source src="<%= message.url %>" type="audio/mp3" />
