@@ -4,7 +4,9 @@ Phone::Application.routes.draw do
     resources :items
   end
   resources :numbers
-  resources :messages
+  resources :mailboxes do
+    resources :messages
+  end
   resources :calls
 
   # The priority is based upon order of creation:

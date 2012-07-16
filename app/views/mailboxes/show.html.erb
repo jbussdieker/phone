@@ -1,9 +1,10 @@
+<h1><%= @mailbox.name %></h1>
 <table class="table table-striped">
   <tr>
-    <td></td>
-    <td>Date</td>
-    <td>Caller</td>
-    <td></td>
+    <th></th>
+    <th>Date</th>
+    <th>Caller</th>
+    <th></th>
   </tr>
   <% @messages.each do |message| %>
   <tr>
@@ -19,3 +20,4 @@
   </tr>
   <% end %>
 </table>
+

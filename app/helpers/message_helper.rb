@@ -1,6 +1,6 @@
 module MessageHelper
     def message_badge(message)
-        "New" if message.new
+        content_tag(:span, "New", class: "badge badge-success") if message.new
     end
 
     def caller_name(message)

@@ -1,0 +1,20 @@
+<%= link_to "New", new_mailbox_path, class: "btn" %>
+<br><br>
+
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Messages</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @mailboxes.each do |mailbox| %>
+    <tr>
+      <td><%= link_to mailbox.name, mailbox %></td>
+      <td><span class="badge"><%= mailbox.messages.count %></span></td>
+      <td><%= link_to "Edit", edit_mailbox_path(mailbox) %></td>
+      <td><%= link_to "Delete", mailbox, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
