@@ -102,10 +102,9 @@ class HomeController < ApplicationController
   def message
     @recording_url = params[:RecordingUrl]
     @caller = params[:Caller]
+    mailbox = 1
     if @caller == "+19079526114"
-        mailbox = "2"
-    else
-        mailbox = "1"
+        mailbox = 2
     end
 
     Message.create(:url => @recording_url, :CallSid => params[:CallSid], :mailbox_id => mailbox, :number => @caller)
