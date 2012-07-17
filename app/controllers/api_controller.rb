@@ -11,9 +11,9 @@ class ApiController < ApplicationController
       @owner = @called.user
       #@mailbox = @owner.mailboxes.first if @owner
       if params[:Caller] == "+18506637608"
-          @mailbox = Mailbox.find(1)
-      elsif params[:Caller] == "+19079526114"
           @mailbox = Mailbox.find(2)
+      elsif params[:Caller] == "+19079526114"
+          @mailbox = Mailbox.find(1)
       end
 
       @new_messages = @mailbox.new_messages if @mailbox
@@ -62,7 +62,7 @@ class ApiController < ApplicationController
 
         if params["Digits"] == "7"
           @messages[@index].delete
-          @messages = Message.all
+          @messages = @mailbox.messages
         else
           @index = @index + 1
         end
