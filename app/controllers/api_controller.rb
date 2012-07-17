@@ -21,6 +21,22 @@ class ApiController < ApplicationController
     end
   end
 
+  def mailbox
+    @called = Number.where(:number => params[:Called]).first
+    @caller = Contact.where(:number => params[:Caller]).first
+    if @called
+      @owner = @called.user
+      @mailbox = @owner.mailboxes.first if @owner
+      @new_messages = @mailbox.new_messages if @mailbox
+      @saved_messages = @mailbox.saved_messages if @mailbox
+      @messages = @mailbox.messages if @mailbox
+      render :action => "mailbox.xml.builder", :layout => false    
+    else
+      @quote = "Couldn't find mailbox"
+      render :action => "quote.xml.builder", :layout => false    
+    end
+  end
+
   def message
     @recording_url = params[:RecordingUrl]
     @caller = params[:Caller]
@@ -39,8 +55,8 @@ class ApiController < ApplicationController
     elsif params[:Digits] == "2"
       render :action => "info.xml.builder", :layout => false
     elsif params[:Digits] == "3"
-      account_sid = Rails.configuration.twilio_sid
-      auth_token = Rails.configuration.twilio_token
+      account_sid = ENV["TWILIO_SID"]
+      auth_token = ENV["TWILIO_TOKEN"]
       my_number = '+14155992671'
       @client = Twilio::REST::Client.new account_sid, auth_token
       @client.account.sms.messages.create(
@@ -53,6 +69,8 @@ class ApiController < ApplicationController
       render :action => "message.xml.builder", :layout => false
     elsif params[:Digits] == "5"
       render :action => "special.xml.builder", :layout => false
+    elsif params[:Digits] == "9"
+      redirect_to "/api/mailbox"
     else
       redirect_to api_path
     end

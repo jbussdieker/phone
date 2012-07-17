@@ -3,4 +3,12 @@ class Mailbox < ActiveRecord::Base
 
   belongs_to :user
   has_many :messages
+
+  def new_messages
+    messages.where("new = ?", true)
+  end
+
+  def saved_messages
+    messages.where("new = ?", false)
+  end
 end
