@@ -17,7 +17,10 @@ xml.Response do
     end
 
     xml.Gather(:action => "/api/messages?index=#{@index}", :numDigits => 1) do
+      xml.Say "recorded #{to_pst(@messages[@index].created_at)}"
+
       xml.Play @messages[@index].url
+
       if @messages[@index].new == true
         xml.Say "Press 1 to keep this message new"
       end
