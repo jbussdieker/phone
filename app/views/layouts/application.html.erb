@@ -26,14 +26,17 @@
                   <%= link_to 'Home', "/" %>
                 </li>
                 <% if user_signed_in? %>
+                  <li class="<%= 'active' if params[:controller] == 'contacts' %>">
+                    <%= link_to 'Contacts', contacts_path %>
+                  </li>
+                  <li class="<%= 'active' if params[:controller] == 'mailboxes' %>">
+                    <%= link_to 'Mailboxes', mailboxes_path %>
+                  </li>
                   <li class="<%= 'active' if params[:controller] == 'numbers' %>">
                     <%= link_to 'Numbers', numbers_path %>
                   </li>
                   <li class="<%= 'active' if params[:controller] == 'calls' %>">
                     <%= link_to 'Calls', calls_path %>
-                  </li>
-                  <li class="<%= 'active' if params[:controller] == 'mailboxes' %>">
-                    <%= link_to 'Mailboxes', mailboxes_path %>
                   </li>
                   <li class="<%= 'active' if params[:controller].starts_with? 'music' %>">
                     <%= link_to 'Music', "/music" %>

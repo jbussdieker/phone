@@ -3,6 +3,7 @@ Phone::Application.routes.draw do
   devise_for :users
   resources :numbers
   resources :calls
+  resources :contacts
   resources :scripts do
     resources :items
   end

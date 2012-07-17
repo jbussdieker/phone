@@ -1,0 +1,17 @@
+<%= link_to 'New', new_contact_path, :class => "btn" %>
+<br><br>
+
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Number</th>
+    <th></th>
+  </tr>
+  <% @contacts.each do |contact| %>
+    <tr>
+      <td><%= contact.name %></td>
+      <td><%= contact.number %></td>
+      <td><%= link_to "Edit", edit_contact_path(contact) %></td>
+    </tr>
+  <% end %>
+</table>
