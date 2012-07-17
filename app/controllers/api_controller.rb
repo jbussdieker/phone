@@ -9,7 +9,13 @@ class ApiController < ApplicationController
     @caller = Contact.where(:number => params[:Caller]).first
     if @called
       @owner = @called.user
-      @mailbox = @owner.mailboxes.first if @owner
+      #@mailbox = @owner.mailboxes.first if @owner
+      if params[:Caller] == "+18506637608"
+          @mailbox = Mailbox.find(1)
+      elsif params[:Caller] == "+19079526114"
+          @mailbox = Mailbox.find(2)
+      end
+
       @new_messages = @mailbox.new_messages if @mailbox
       @saved_messages = @mailbox.saved_messages if @mailbox
       @messages = @mailbox.messages.find(:all, :order => 'new DESC') if @mailbox
