@@ -4,6 +4,18 @@ class ApiController < ApplicationController
     render :action => "index.xml.builder", :layout => false
   end
 
+  def read_caller_info
+    @called = Number.where(:number => params[:Called]).first
+    @caller = Contact.where(:number => params[:Caller]).first
+    if @called
+      @owner = @called.user
+      @mailbox = @owner.mailboxes.first if @owner
+      @new_messages = @mailbox.new_messages if @mailbox
+      @saved_messages = @mailbox.saved_messages if @mailbox
+      @messages = @mailbox.messages.find(:all, :order => 'new DESC') if @mailbox
+    end
+  end
+
   def register_call
     if params["CallSid"]
       filter_params = params.reject {|key,value|
@@ -21,19 +33,57 @@ class ApiController < ApplicationController
     end
   end
 
-  def mailbox
-    @called = Number.where(:number => params[:Called]).first
-    @caller = Contact.where(:number => params[:Caller]).first
-    if @called
-      @owner = @called.user
-      @mailbox = @owner.mailboxes.first if @owner
-      @new_messages = @mailbox.new_messages if @mailbox
-      @saved_messages = @mailbox.saved_messages if @mailbox
-      @messages = @mailbox.messages if @mailbox
-      render :action => "mailbox.xml.builder", :layout => false    
+  def messages
+    read_caller_info
+    if @mailbox
+      if params[:index]
+        @index = params[:index].to_i
+        
+        if params["Digits"] != "1"
+          @messages[@index].new = false
+          @messages[@index].save
+        end
+
+        if params["Digits"] == "4"
+          @index = @index - 2
+          @index = -1 if @index < 0
+        end
+
+        if params["Digits"] == "5"
+          @index = @index - 1
+          @index = -1 if @index < 0
+        end
+
+        if params["Digits"] == "7"
+          @messages[@index].delete
+          @messages = Message.all
+        else
+          @index = @index + 1
+        end
+
+        if @index >= @messages.count
+          @index = -1
+        end
+      elsif @messages.count > 0
+        @index = 0
+      else
+        @index = -1
+      end
+
+      render :action => "messages.xml.builder", :layout => false
     else
       @quote = "Couldn't find mailbox"
-      render :action => "quote.xml.builder", :layout => false    
+      render :action => "quote.xml.builder", :layout => false
+    end
+  end
+
+  def mailbox
+    read_caller_info
+    if @mailbox
+      render :action => "mailbox.xml.builder", :layout => false
+    else
+      @quote = "Couldn't find mailbox"
+      render :action => "quote.xml.builder", :layout => false
     end
   end
 
