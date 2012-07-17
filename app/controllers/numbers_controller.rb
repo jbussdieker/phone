@@ -2,19 +2,19 @@ class NumbersController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @numbers = Number.all(:order => "name")
+    @numbers = current_user.numbers.all(:order => "name")
   end
 
   def edit
-    @number = Number.find(params[:id])
+    @number = current_user.numbers.find(params[:id])
   end
 
   def new
-    @number = Number.new
+    @number = current_user.numbers.new
   end
 
   def create
-    @number = Number.new(params[:number])
+    @number = current_user.numbers.new(params[:number])
 
     respond_to do |format|
       if @number.save
@@ -28,7 +28,7 @@ class NumbersController < ApplicationController
   end
 
   def update
-    @number = Number.find(params[:id])
+    @number = current_user.numbers.find(params[:id])
 
     respond_to do |format|
       if @number.update_attributes(params[:number])
