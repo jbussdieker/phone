@@ -35,6 +35,9 @@
                   <li class="<%= 'active' if params[:controller] == 'mailboxes' %>">
                     <%= link_to 'Mailboxes', mailboxes_path %>
                   </li>
+                  <li class="<%= 'active' if params[:controller].starts_with? 'music' %>">
+                    <%= link_to 'Music', music_path %>
+                  </li>
                   <li class="<%= 'active' if params[:controller] == 'scripts' %>">
                     <%= link_to 'Scripts', scripts_path %>
                   </li>
