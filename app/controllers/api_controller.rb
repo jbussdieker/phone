@@ -18,7 +18,7 @@ class ApiController < ApplicationController
 
       @new_messages = @mailbox.new_messages if @mailbox
       @saved_messages = @mailbox.saved_messages if @mailbox
-      @messages = @mailbox.messages.find(:all, :order => 'new DESC') if @mailbox
+      @messages = @mailbox.messages if @mailbox
     end
   end
 

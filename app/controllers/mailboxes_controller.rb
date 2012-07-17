@@ -23,7 +23,7 @@ class MailboxesController < ApplicationController
 
   def show
     @mailbox = base.find(params[:id])
-    @messages = @mailbox.messages.all(:order => 'created_at DESC')
+    @messages = @mailbox.messages.all
   end
 
   def create
