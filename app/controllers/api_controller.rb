@@ -44,10 +44,11 @@ class ApiController < ApplicationController
     if @mailbox
       if params[:index]
         @index = params[:index].to_i
-        
-        if params["Digits"] != "1"
+
+        if @messages[@index].new
           @messages[@index].new = false
           @messages[@index].save
+          @index = @index - 1
         end
 
         if params["Digits"] == "4"

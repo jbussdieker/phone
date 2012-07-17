@@ -23,6 +23,7 @@ xml.Response do
       end
 
       xml.Say "Press 2 to leave a message."
-      xml.Redirect "/api"
     end
+
+    xml.Redirect "/api"
 end
