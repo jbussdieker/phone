@@ -1,6 +1,7 @@
 class ApiController < ApplicationController
   def index
     register_call
+    read_caller_info
     render :action => "index.xml.builder", :layout => false
   end
 
