@@ -11,7 +11,7 @@
   </tr>
   <% @calls.each do |call| %>
   <tr>
-    <td><%= content_tag :span, "New", class: "badge badge-success" if call.new %></td>
+    <td><%= link_to "New", toggle_new_call_path(call), class: "badge badge-success" if call.new %></td>
     <td><%= l call.created_at.in_time_zone("Pacific Time (US & Canada)"), :format => '%B %d, %Y %l:%M %p' %></td>
     <td><%= call.Caller %></td>
     <td><%= call.Called %></td>

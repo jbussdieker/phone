@@ -5,6 +5,13 @@ class CallsController < ApplicationController
     @calls = Call.all(:order => 'created_at DESC')
   end
 
+  def toggle_new
+    @call = Call.find(params[:id])
+    @call.new = !@call.new
+    @call.save
+    redirect_to calls_path
+  end
+
   def destroy
     @call = Call.find(params[:id])
     @call.delete

@@ -2,7 +2,11 @@ Phone::Application.routes.draw do
   root :to => 'home#index'
   devise_for :users
   resources :numbers
-  resources :calls
+  resources :calls do
+    member do
+      get 'toggle_new'
+    end
+  end
   resources :contacts
   resources :scripts do
     resources :items
