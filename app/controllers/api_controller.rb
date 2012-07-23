@@ -141,8 +141,6 @@ class ApiController < ApplicationController
       render :action => "page.xml.builder", :layout => false
     elsif params[:Digits] == "4"
       render :action => "message.xml.builder", :layout => false
-    elsif params[:Digits] == "5"
-      render :action => "special.xml.builder", :layout => false
     elsif params[:Digits] == "9"
       redirect_to "/api/mailbox"
     else
