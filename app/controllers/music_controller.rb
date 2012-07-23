@@ -34,6 +34,8 @@ class MusicController < ApplicationController
     filename = params[:song][:file].original_filename
     if filename.split("-").length > 1
       artist, title = filename.split("-")
+      artist.strip!
+      title.strip!
     else
       artist = "Unknown"
       title = filename

@@ -14,14 +14,16 @@ Phone::Application.routes.draw do
   resources :mailboxes do
     resources :messages
   end
-  match 'api' => 'api#index'
-  match 'api/call' =>    'api#call'
-  match 'api/menu' =>    'api#menu'
-  match 'api/info' =>    'api#info'
-  match 'api/music' =>   'api#music'
-  match 'api/play' =>    'api#play'
-  match 'api/message' => 'api#message'
-  match 'api/messages' => 'api#messages'
-  match 'api/mailbox' => 'api#mailbox'
+  match 'api' =>               'api#index'
+  match 'api/call' =>          'api#call'
+  match 'api/menu' =>          'api#menu'
+  match 'api/info' =>          'api#info'
+  match 'api/music' =>         'api#music'
+  match 'api/music/songs' =>   'api#songs'
+  match 'api/music/artists' => 'api#artists'
+  match 'api/play' =>          'api#play'
+  match 'api/message' =>       'api#message'
+  match 'api/messages' =>      'api#messages'
+  match 'api/mailbox' =>       'api#mailbox'
   resources :music
 end

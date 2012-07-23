@@ -3,6 +3,6 @@ xml.Response do
     xml.Gather(:action => api_music_path) do
       xml.Play @song[:url]
     end
-    xml.Redirect api_path
+    xml.Redirect api_music_path
 end
 

@@ -1,17 +1,30 @@
 class ApiController < ApplicationController
-  def get_songs
+  def get_songs(artist="")
     @songs = []
     @objects = AWS::S3::Bucket.find("phone_music").objects
     @objects.each do |obj|
       if obj.key.split("/").length > 1
-        @songs << {
-          artist: obj.key.split("/")[0],
-          title: obj.key.split("/")[1][0..-5],
-          url: AWS::S3::S3Object.url_for(obj.key, "phone_music")
-        }
+        if !artist || artist == obj.key.split("/")[0]
+          @songs << {
+            artist: obj.key.split("/")[0],
+            title: obj.key.split("/")[1][0..-5],
+            url: AWS::S3::S3Object.url_for(obj.key, "phone_music")
+          }
+        end
       end
     end
     @songs
+  end
+
+  def get_artists
+    @artists = []
+    @objects = AWS::S3::Bucket.find("phone_music").objects
+    @objects.each do |obj|
+      if obj.key.ends_with?("/")
+        @artists << obj.key.split("/")[0]
+      end
+    end
+    @artists
   end
 
   def index
@@ -124,8 +137,7 @@ class ApiController < ApplicationController
 
   def menu
     if params[:Digits] == "1"
-      @songs = get_songs
-      render :action => "music.xml.builder", :layout => false
+      redirect_to api_music_path
     elsif params[:Digits] == "2"
       render :action => "info.xml.builder", :layout => false
     elsif params[:Digits] == "3"
@@ -179,21 +191,61 @@ class ApiController < ApplicationController
     render :action => "quote.xml.builder", :layout => false
   end
 
+  def artists
+    if params[:Digits] == "0"
+      redirect_to api_music_path
+      return
+    end
+
+    @artists = get_artists
+
+    if params[:Digits]
+      selection = params[:Digits].to_i - 1
+      if @artists.length < selection
+        @quote = "Invalid selection"
+        render :action => "quote.xml.builder", :layout => false
+      else
+        redirect_to api_music_songs_path(artist: @artists[selection])
+      end
+    else
+      render :action => "artists.xml.builder", :layout => false
+    end
+  end
+
+  def songs
+    if params[:Digits] == "0"
+      redirect_to api_music_path
+      return
+    end
+
+    @songs = get_songs(params[:artist])
+
+    if params[:Digits]
+      selection = params[:Digits].to_i - 1
+      if @songs.length < selection
+        @quote = "Invalid selection"
+        render :action => "quote.xml.builder", :layout => false
+      else
+        @song = @songs[selection]
+        render :action => "play.xml.builder", :layout => false
+      end
+    else
+      render :action => "songs.xml.builder", :layout => false
+    end
+  end
+
   def music
     if params[:Digits] == "0"
       redirect_to api_path
       return
-    end
-
-    @songs = get_songs
-    selection = params[:Digits].to_i - 1
-    if @songs.length < selection
-      @quote = "Invalid selection"
-      render :action => "quote.xml.builder", :layout => false
+    elsif params[:Digits] == "1"
+      redirect_to api_music_songs_path
+      return
+    elsif params[:Digits] == "2"
+      redirect_to api_music_artists_path
       return
     end
 
-    @song = @songs[selection]
-    render :action => "play.xml.builder", :layout => false
+    render :action => "music.xml.builder", :layout => false
   end
 end
