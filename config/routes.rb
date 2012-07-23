@@ -23,10 +23,5 @@ Phone::Application.routes.draw do
   match 'api/message' => 'api#message'
   match 'api/messages' => 'api#messages'
   match 'api/mailbox' => 'api#mailbox'
-  namespace :music do
-    root :to => 'music#index'
-    resources :artists do
-      resources :songs
-    end
-  end
+  resources :music
 end

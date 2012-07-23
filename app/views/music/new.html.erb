@@ -1,0 +1,14 @@
+<h1>Upload Song</h1>
+<p>
+  <%= link_to "Back", music_index_path %>
+</p>
+
+<%= form_for("song", url: music_index_path) do |f| %>
+  <%= @error %>
+  <div>
+    <%= f.label :file %>
+    <%= f.file_field :file %>
+  </div>
+
+  <%= f.submit %>
+<% end %>

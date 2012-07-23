@@ -109,6 +109,17 @@ class ApiController < ApplicationController
 
   def menu
     if params[:Digits] == "1"
+      @songs = []
+      @objects = AWS::S3::Bucket.find("phone_music").objects
+      @objects.each do |obj|
+        if obj.key.split("/").length > 1
+          @songs << {
+            artist: obj.key.split("/")[0],
+            title: obj.key.split("/")[1][0..-5],
+            url: AWS::S3::S3Object.url_for(obj.key, "phone_music")
+          }
+        end
+      end
       render :action => "music.xml.builder", :layout => false
     elsif params[:Digits] == "2"
       render :action => "info.xml.builder", :layout => false

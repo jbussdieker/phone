@@ -1,0 +1,19 @@
+<h1>Music</h1>
+<p>
+  <%= link_to "New Song", new_music_path %>
+</p>
+
+<%= @error %>
+
+<ul>
+<% @songs.each do |song| %>
+  <li>
+    <%= "#{song[:artist]} - #{song[:title]}" %>
+    <a href="#" onclick="document.getElementById('audio').play();">Play</a>
+    <audio id="audio" preload=none>
+      <source type="audio/mpeg" src="<%= song[:url] %>">
+      Your browser does not support the audio element.
+    </audio>
+  </li>
+<% end %>
+</ul>
