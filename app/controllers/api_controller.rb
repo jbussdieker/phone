@@ -1,4 +1,19 @@
 class ApiController < ApplicationController
+  def get_songs
+    @songs = []
+    @objects = AWS::S3::Bucket.find("phone_music").objects
+    @objects.each do |obj|
+      if obj.key.split("/").length > 1
+        @songs << {
+          artist: obj.key.split("/")[0],
+          title: obj.key.split("/")[1][0..-5],
+          url: AWS::S3::S3Object.url_for(obj.key, "phone_music")
+        }
+      end
+    end
+    @songs
+  end
+
   def index
     register_call
     read_caller_info
@@ -109,17 +124,7 @@ class ApiController < ApplicationController
 
   def menu
     if params[:Digits] == "1"
-      @songs = []
-      @objects = AWS::S3::Bucket.find("phone_music").objects
-      @objects.each do |obj|
-        if obj.key.split("/").length > 1
-          @songs << {
-            artist: obj.key.split("/")[0],
-            title: obj.key.split("/")[1][0..-5],
-            url: AWS::S3::S3Object.url_for(obj.key, "phone_music")
-          }
-        end
-      end
+      @songs = get_songs
       render :action => "music.xml.builder", :layout => false
     elsif params[:Digits] == "2"
       render :action => "info.xml.builder", :layout => false
@@ -182,21 +187,15 @@ class ApiController < ApplicationController
       return
     end
 
-    if params[:Digits] == "1"
-      @song_url = "https://s3.amazonaws.com/jbussdieker/music/Don%27t+Worry+Be+Happy.mp3"
-    elsif params[:Digits] == "2"
-      @song_url = "https://s3.amazonaws.com/jbussdieker/music/I%27ll+Be+Waiting.mp3"
-    elsif params[:Digits] == "3"
-      @song_url = "https://s3.amazonaws.com/jbussdieker/music/Finally+Moving.mp3"
-    elsif params[:Digits] == "4"
-      @song_url = "https://s3.amazonaws.com/jbussdieker/music/Flight+180.mp3"
-    elsif params[:Digits] == "5"
-      @song_url = "https://s3.amazonaws.com/jbussdieker/music/Only+Fools+Rush+In.mp3"
-    elsif params[:Digits] == "6"
-      @song_url = "https://s3.amazonaws.com/jbussdieker/music/Beds+Are+Burning.mp3"
-    elsif params[:Digits] == "7"
-      @song_url = "https://s3.amazonaws.com/jbussdieker/music/I+Touch+Myself.mp3"
+    @songs = get_songs
+    selection = params[:Digits].to_i - 1
+    if @songs.length < selection
+      @quote = "Invalid selection"
+      render :action => "quote.xml.builder", :layout => false
+      return
     end
+
+    @song = @songs[selection]
     render :action => "play.xml.builder", :layout => false
   end
 end
