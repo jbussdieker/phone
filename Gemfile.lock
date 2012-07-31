@@ -118,6 +118,7 @@ GEM
     warden (1.1.1)
       rack (>= 1.0)
     xml-simple (1.1.1)
+    yaml_db (0.2.3)
 
 PLATFORMS
   ruby
@@ -132,3 +133,4 @@ DEPENDENCIES
   sqlite3
   twilio-ruby
   uglifier (>= 1.0.3)
+  yaml_db

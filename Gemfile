@@ -9,6 +9,7 @@ gem 'sqlite3'
 gem 'twilio-ruby'
 gem 'devise'
 gem 'aws-s3'
+gem 'yaml_db'
 
 # Gems used only for assets and not required
 # in production environments by default.
