@@ -20,11 +20,9 @@ class ApiController < ApplicationController
     @artists = []
     @objects = AWS::S3::Bucket.find("phone_music").objects
     @objects.each do |obj|
-      if obj.key.ends_with?("/")
-        @artists << obj.key.split("/")[0]
-      end
+      @artists << obj.key.split("/")[0]
     end
-    @artists
+    @artists.uniq
   end
 
   def index
