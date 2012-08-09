@@ -1,7 +1,7 @@
 class ApiController < ApplicationController
   def get_songs(artist="")
     @songs = []
-    @objects = AWS::S3::Bucket.find("phone_music").objects
+    @objects = $aws_bucket.objects
     @objects.each do |obj|
       if obj.key.split("/").length > 1
         if !artist || artist == obj.key.split("/")[0]
@@ -18,7 +18,7 @@ class ApiController < ApplicationController
 
   def get_artists
     @artists = []
-    @objects = AWS::S3::Bucket.find("phone_music").objects
+    @objects = $aws_bucket.objects
     @objects.each do |obj|
       @artists << obj.key.split("/")[0]
     end

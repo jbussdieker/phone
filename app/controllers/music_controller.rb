@@ -2,7 +2,9 @@ class MusicController < ApplicationController
   def index
     begin
       @songs = []
-      @objects = AWS::S3::Bucket.find("phone_music").objects
+      # It's silly but this updates the global list so the api calls are faster
+      $aws_bucket = AWS::S3::Bucket.find("phone_music")
+      @objects = $aws_bucket.objects
       @objects.each do |obj|
         if obj.key.split("/").length > 1
           @songs << {
